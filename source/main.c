@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "hardware.h"
+#include "controlFiles.h"
 
 static void clear_all_order_lights(){
     HardwareOrder order_types[3] = {
@@ -38,11 +39,16 @@ int main(){
     printf("Press the stop button on the elevator panel to exit\n");
 
     hardware_command_movement(HARDWARE_MOVEMENT_UP);
+    int currentFloors[0,0,0,0];
 
     while(1){
         if(hardware_read_stop_signal()){
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             break;
+        }
+
+        if(CheckArriveFloor(currentFloors[])){
+            hardware_command_movement(HARDWARE_MOVEMENT_STOP);
         }
 
         if(hardware_read_floor_sensor(0)){
