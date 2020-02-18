@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "hardware.h"
+#include "controlFiles.h"
 
 
 static void clear_all_order_lights(){
@@ -26,19 +27,6 @@ static void sigint_handler(int sig){
     exit(0);
 }
 
-int CheckArriveFloor(int currentFloors[]) {
-  for(int i=0;i<HARDWARE_NUMBER_OF_FLOORS;i++){
-    if(hardware_read_floor_sensor(i) > currentFloors[i]){
-      currentFloors[i]=1;
-      return 1;
-    }
-    else if(hardware_read_floor_sensor(i) < currentFloors[i]) {
-      currentFloors[i]=0;
-      return 0;
-    }
-  }
-return 0;
-}
 
 int main(){
     int error = hardware_init();
