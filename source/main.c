@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "hardware.h"
-<<<<<<< HEAD
-#include "timer.h"
-=======
-#include "controlFiles.h"
->>>>>>> 7484f5374129ca3a806b190e79e62910f026e0a3
+
+//#include "timer.h"
+
+//#include "controlFiles.h"
+
 
 
 static void clear_all_order_lights(){
@@ -45,7 +45,8 @@ int main(){
     printf("Press the stop button on the elevator panel to exit\n");
 
     hardware_command_movement(HARDWARE_MOVEMENT_UP);
-    int currentFloors[] = {0,0,0,0};
+
+    //int currentFloors[] = {0,0,0,0};
 
     while(1){
         if(hardware_read_stop_signal()){
@@ -53,9 +54,9 @@ int main(){
             break;
         }
 
-        if(CheckArriveFloor(currentFloors)){
+        /*if(CheckArriveFloor(currentFloors)){
             StopAtFloor();
-        }
+        }*/
 
         if(hardware_read_floor_sensor(0)){
             hardware_command_movement(HARDWARE_MOVEMENT_UP);
