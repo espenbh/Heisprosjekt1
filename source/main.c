@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "hardware.h"
+#include "timer.h"
 
 
 static void clear_all_order_lights(){
@@ -62,7 +63,7 @@ int main(){
         }
 
         if(CheckArriveFloor(currentFloors)){
-            hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+            StopAtFloor();
         }
 
         if(hardware_read_floor_sensor(0)){
