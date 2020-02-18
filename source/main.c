@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "hardware.h"
-#include "controlFiles.h"
+
 
 static void clear_all_order_lights(){
     HardwareOrder order_types[3] = {
@@ -26,6 +26,20 @@ static void sigint_handler(int sig){
     exit(0);
 }
 
+int CheckArriveFloor(int currentFloors[]) {
+  for(int i=0;i<HARDWARE_NUMBER_OF_FLOORS;i++){
+    if(hardware_read_floor_sensor(i) > currentFloors[i]){
+      currentFloors[i]=1;
+      return 1;
+    }
+    else if(hardware_read_floor_sensor(i) < currentFloors[i]) {
+      currentFloors[i]=0;
+      return 0;
+    }
+  }
+return 0;
+}
+
 int main(){
     int error = hardware_init();
     if(error != 0){
@@ -39,7 +53,7 @@ int main(){
     printf("Press the stop button on the elevator panel to exit\n");
 
     hardware_command_movement(HARDWARE_MOVEMENT_UP);
-    int currentFloors[0,0,0,0];
+    int currentFloors[] = {0,0,0,0};
 
     while(1){
         if(hardware_read_stop_signal()){
@@ -47,7 +61,7 @@ int main(){
             break;
         }
 
-        if(CheckArriveFloor(currentFloors[])){
+        if(CheckArriveFloor(currentFloors)){
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
         }
 

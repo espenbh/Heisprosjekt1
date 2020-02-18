@@ -7,7 +7,7 @@ int CheckArriveFloor(int currentFloors[]) {
       currentFloors[i]=1;
       return 1
     }
-    elseif(hardware_read_floor_sensor(i) < currentFloors[i]) {
+    else if(hardware_read_floor_sensor(i) < currentFloors[i]) {
       currentFloors[i]=0;
       return 0;
     }
