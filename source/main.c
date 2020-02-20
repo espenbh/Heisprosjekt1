@@ -2,13 +2,20 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "hardware.h"
+#include "timer.h"
+#include "controlFiles.h"
+#include <stdbool.h>
+#include "variables.h"
 
-//#include "timer.h"
+int FLOOR;
+HardwareMovement DIRECTION;
+int currentFloors[4] = {0,0,0,0};
+int MASTER_MATRIX[4][3] = {{0, 0, 0},{0, 0, 0},{0, 0, 0}};
+time_t TIMER;
 
-//#include "controlFiles.h"
 
 
-
+/*
 static void clear_all_order_lights(){
     HardwareOrder order_types[3] = {
         HARDWARE_ORDER_UP,
@@ -22,7 +29,7 @@ static void clear_all_order_lights(){
             hardware_command_order_light(f, type, 0);
         }
     }
-}
+}*/
 
 static void sigint_handler(int sig){
     (void)(sig);
@@ -33,71 +40,48 @@ static void sigint_handler(int sig){
 
 
 int main(){
-    int error = hardware_init();
+	int error = hardware_init();
     if(error != 0){
         fprintf(stderr, "Unable to initialize hardware\n");
         exit(1);
     }
+    initializeElevator();
+
+    
 
     signal(SIGINT, sigint_handler);
 
     printf("=== Example Program ===\n");
     printf("Press the stop button on the elevator panel to exit\n");
 
-    hardware_command_movement(HARDWARE_MOVEMENT_UP);
-
-    //int currentFloors[] = {0,0,0,0};
 
     while(1){
+	/*
+        if(hardware_read_obstruction_signal()){
+            StartTimer();
+        }*/
         if(hardware_read_stop_signal()){
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             break;
         }
 
-        /*if(CheckArriveFloor(currentFloors)){
-            StopAtFloor();
-        }*/
-
-        if(hardware_read_floor_sensor(0)){
-            hardware_command_movement(HARDWARE_MOVEMENT_UP);
+        if(CheckIfStop(currentFloors)){  //Sjekker om den ANKOMMER en etasje, og om MASTER_MATRIX har høye bit i etasjen
+		printf("checkifstop");
+            ArriveFloor();//gjør alt som må gjøres i etasjen.
         }
-        if(hardware_read_floor_sensor(HARDWARE_NUMBER_OF_FLOORS - 1)){
-            hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+        if(CheckIfLeave()){
+            LeaveFloor();
         }
 
-        /* All buttons must be polled, like this: */
-        for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
-            if(hardware_read_order(f, HARDWARE_ORDER_INSIDE)){
-                hardware_command_floor_indicator_on(f);
-            }
-        }
-
-        /* Lights are set and cleared like this: */
-        for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
-            /* Internal orders */
-            if(hardware_read_order(f, HARDWARE_ORDER_INSIDE)){
-                hardware_command_order_light(f, HARDWARE_ORDER_INSIDE, 1);
-            }
-
-            /* Orders going up */
-            if(hardware_read_order(f, HARDWARE_ORDER_UP)){
-                hardware_command_order_light(f, HARDWARE_ORDER_UP, 1);
-            }
-
-            /* Orders going down */
-            if(hardware_read_order(f, HARDWARE_ORDER_DOWN)){
-                hardware_command_order_light(f, HARDWARE_ORDER_DOWN, 1);
-            }
-        }
-
+        setOrdersAndOrderLights();//Masse if-setninger, hvis en knapp blir trykket, settes riktig bit i matrisen til høy, og lyset slås på
+	/*
         if(hardware_read_obstruction_signal()){
             hardware_command_stop_light(1);
             clear_all_order_lights();
         }
         else{
             hardware_command_stop_light(0);
-        }
+        }*/
     }
-
     return 0;
 }

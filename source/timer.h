@@ -1,2 +1,7 @@
+#include <stdio.h>
+#include <time.h>
+#include <stdbool.h>
 
-void StopAtFloor();
+volatile void StartTimer();
+volatile int TimerCount();
+volatile void Stoptimer();

@@ -1,5 +1,6 @@
 
 #include <time.h>
+#include "timer.h"
 #include <stdio.h>
 
 volatile time_t TIMER;

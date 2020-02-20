@@ -1,4 +1,4 @@
-SOURCES := main.c controlFiles.c timer.c
+SOURCES := main.c controlFiles_kladd.c timer_kladd.c
 
 SOURCE_DIR := source
 BUILD_DIR := build
