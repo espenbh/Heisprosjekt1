@@ -142,5 +142,19 @@ void initializeElevator() {
     }
   }
 }
-     
 
+void stopFunction(){
+  hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+  for(int i=0;i<3;i++){
+    for int j=0;j<HARDWARE_NUMBER_OF_FLOORS;j++){
+      hardware_command_order_light(j, i, 0);
+      MASTER_MATRIX[i][j]=0;
+    }
+  }
+  if (FLOOR!=-1) {
+    hardware_command_door_open(1);
+  }
+  while(hardware_read_stop_signal() || TimerCount<3){
+    int a=0;
+  }
+}

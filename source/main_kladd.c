@@ -53,6 +53,9 @@ int main(){
     GLOBAL HardwareMovement DIRECTION;
     GLOBAL time_t TIMER;
     while(1){
+        if(hardware_read_obstruction_signal()){
+            StartTimer();
+        }
         if(hardware_read_stop_signal()){
             hardware_command_movement(HARDWARE_MOVEMENT_STOP);
             break;
