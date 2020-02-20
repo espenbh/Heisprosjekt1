@@ -29,7 +29,7 @@ int CheckIfLeave() {
 
 void ArriveFloor() {
   hardware_command_movement(HARDWARE_MOVEMENT_STOP);//Stopper bevegelsen
-  SetTimer() //starter pauseklokka
+  StartTimer() //starter pauseklokka
   hardware_command_door_open(1); //setter døråpnelyset til 1
   hardware_command_floor_indicator_on(FLOOR);
   UpdateMasterMatrixAndDirection() //sletter alle elementene på etasjen heisen står i, skrur av disse lysene, og sjekker matrisen for retning heisen skal gå i
@@ -125,5 +125,20 @@ void UpdateMasterMatrixAndDirection(){
     if(anyOrdersAbove){DIRECTION=HARDWARE_MOVEMENT_UP;}
     else if(anyOrdersBelow){DIRECTION=HARDWARE_MOVEMENT_DOWN;}
     else{DIRECTION=HARDWARE_MOVEMENT_STOP;}
+  }
+}
+
+void initializeElevator() {
+  bool OnAFloor = 0;
+  hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+  DIRECTION=HARDWARE_MOVEMENT_DOWN
+  while(!OnAFloor){
+    for(int i=0;i<HARDWARE_NUMBER_OF_FLOORS;i++){
+      if(hardware_read_floor_sensor(i)){
+        OnAFloor=1;
+        FLOOR=i;
+        StartTimer();
+      }
+    }
   }
 }
