@@ -33,7 +33,7 @@ static void sigint_handler(int sig){
 
 
 int main(){
-    initializeElevator()
+    initializeElevator();
     int error = hardware_init();
     if(error != 0){
         fprintf(stderr, "Unable to initialize hardware\n");
@@ -65,7 +65,7 @@ int main(){
             LeaveFloor();
         }
 
-        setOrdersAndLights()//Masse if-setninger, hvis en knapp blir trykket, settes riktig bit i matrisen til høy, og lyset slås på
+           setOrdersAndLights();//Masse if-setninger, hvis en knapp blir trykket, settes riktig bit i matrisen til høy, og lyset slås på
 
         if(hardware_read_obstruction_signal()){
             hardware_command_stop_light(1);
