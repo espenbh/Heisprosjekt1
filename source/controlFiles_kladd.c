@@ -155,6 +155,8 @@ void stopFunction(){
     hardware_command_door_open(1);
   }
   while(hardware_read_stop_signal() || TimerCount<3){
-    int a=0;
+      if hardware_read_stop_signal(){
+          StartTimer();
+      }
   }
 }
