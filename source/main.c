@@ -7,8 +7,9 @@
 #include <stdbool.h>
 #include "variables.h"
 
-Direction DIRECTION;
-Floor FLOOR;
+Direction DIRECTION ={2,1};
+Floor FLOOR = {0, 0};
+//int currentFloors[4] = {0,0,0,0};
 int MASTER_MATRIX[3][4] = {{0, 0, 0, 0},{0, 0, 0, 0},{0, 0, 0, 0}};
 time_t TIMER;
 int hasStopped = 0;
@@ -30,21 +31,38 @@ int main(){
 
   initializeElevator();
 
-  while(1){
-    if(hardware_read_obstruction_signal() && FLOOR.current>-1 && hardware_read_door_open()){
-      StartTimer();
-    }
-    if(hardware_read_stop_signal()){
-    	stopFunction();
-    }
-    if(DIRECTION.current!=HARDWARE_MOVEMENT_STOP){
-        DIRECTION.last = DIRECTION.current; //Gir 0 for oppover og 1 for nedover
+
+    while(1){
+
+        if(hardware_read_obstruction_signal() && FLOOR.current>-1 && hardware_read_door_open()){
+            StartTimer();
+        }
+        if(hardware_read_stop_signal()){
+            stopFunction();
+        }
+        if(DIRECTION.current!=HARDWARE_MOVEMENT_STOP){
+        DIRECTION.last = DIRECTION.current;
 		}
-    if(prioritizeStop()){  //Sjekker om den ANKOMMER en etasje, og om MASTER_MATRIX har høye bit i etasjen
-      ArriveFloor();//gjør alt som må gjøres i etasjen.
-    }
-    if(CheckIfLeave()){
-      LeaveFloor();
+
+        if(FLOOR.current>-1){
+        FLOOR.last = FLOOR.current;
+		}
+
+        if(prioritizeStop()){  //Sjekker om den ANKOMMER en etasje, og om MASTER_MATRIX har høye bit i etasjen
+            ArriveFloor();//gjør alt som må gjøres i etasjen.
+        }
+        if(CheckIfLeave()){
+            LeaveFloor();
+        }
+        if (hasStopped)
+        {
+            hasStoppedFunction();
+        }
+
+
+        setOrdersAndOrderLights();//Masse if-setninger, hvis en knapp blir trykket, settes riktig bit i matrisen til høy, og lyset slås på
+
+
     }
   	setOrdersAndOrderLights();//Masse if-setninger, hvis en knapp blir trykket, settes riktig bit i matrisen til høy, og lyset slås på
   }

@@ -7,10 +7,13 @@
 #include <time.h>
 #include "hardware.h"
 
+#ifndef structinit
+#define structinit
+
 /**
-* @brief Define a struct to keep track of current and previous floor.
-* @param current Holds the current floor, -1 if moving.
-* @param last Holds the last floor the elevator were at.
+* @brief Define a struct to keep track of current and previous floors.
+* @param current Holds the current floor. -1 if moving.
+* @param last Holds the last floor.
 */
 typedef struct {
 	int current;
@@ -27,6 +30,7 @@ typedef struct {
 	HardwareMovement current;
 	HardwareMovement last;
 } Direction;
+#endif
 extern Direction DIRECTION;
 
 /**

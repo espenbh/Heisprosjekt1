@@ -16,3 +16,5 @@ void initializeElevator();
 void stopFunction();
 int checkOrdersAbove();
 int checkOrdersBelow();
+void hasStoppedFunction();
+void updateDirection();
