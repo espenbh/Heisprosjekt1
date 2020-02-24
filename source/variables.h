@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include "hardware.h"
-
+#ifndef structinit
+#define structinit
 typedef struct {
 	int current;
 	int last;
@@ -13,6 +14,7 @@ typedef struct {
 	HardwareMovement current;
 	HardwareMovement last;
 } Direction;
+#endif
 extern Direction DIRECTION;
 //extern int currentFloors[4];
 extern int MASTER_MATRIX[3][4];

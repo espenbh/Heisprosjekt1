@@ -39,12 +39,12 @@ for(int i=0;i<HARDWARE_NUMBER_OF_FLOORS;i++){
     		return 1;
     	}
 
-    	if(DIRECTION.last==0 && checkOrdersAbove(i)){
+    	if(DIRECTION.last==HARDWARE_MOVEMENT_UP && checkOrdersAbove(i)){
     		//printf("ordersabove");
     		return 0;
     	}
 
-    	if(DIRECTION.last==1 && checkOrdersBelow(i)){
+    	if(DIRECTION.last==HARDWARE_MOVEMENT_DOWN && checkOrdersBelow(i)){
     		//printf("ordersbelow");
     		return 0;
     	}
@@ -69,12 +69,11 @@ void ArriveFloor() {
   hardware_command_movement(HARDWARE_MOVEMENT_STOP);//Stopper bevegelsen
   StartTimer(); //starter pauseklokka
   hardware_command_door_open(1); //setter døråpnelyset til 1
-
+  if (hasStopped){hasStopped=0;}
   for(int i=0;i<3;i++){
       hardware_command_order_light(FLOOR.current, i, 0);
 
   }
-  //UpdateMasterMatrixAndDirection(); //sletter alle elementene på etasjen heisen står i, skrur av disse lysene, og sjekker matrisen for retning heisen skal gå i
 }
 
 void LeaveFloor() {
@@ -142,27 +141,21 @@ void setOrdersAndOrderLights() {
     MASTER_MATRIX[2][3]=1;
     hardware_command_order_light(3, HARDWARE_ORDER_INSIDE, 1);
   }
-/*for (int i=0; i<4; i++){
-	printf("\n");
-	for (int j=0; j<3; j++){
-		printf("%d",MASTER_MATRIX[j][i]);
-}}printf("\n");*/
 }
 
 void UpdateMasterMatrixAndDirection(){
 
-	if(FLOOR.current>-1 || hasStopped==1){
+	if(FLOOR.current>-1){
 
 	  for(int i=0;i<3;i++){
 	  	hardware_command_order_light(FLOOR.current, i, 0);
 		MASTER_MATRIX[i][FLOOR.current]=0;
 	  }
+  updateDirection(checkOrdersBelow(FLOOR.current), checkOrdersAbove(FLOOR.current));
+}
+}
 
-
-  bool anyOrdersBelow=checkOrdersBelow(FLOOR.current), anyOrdersAbove=checkOrdersAbove(FLOOR.current);
-  //printf("Above:%d\n",anyOrdersAbove);
-  //printf("Below:%d\n",anyOrdersBelow);
-  //printf("%d\n",FLOOR);
+void updateDirection(int anyOrdersAbove, int anyOrdersBelow){
   if(DIRECTION.current==HARDWARE_MOVEMENT_UP){
     if(anyOrdersAbove){DIRECTION.current=HARDWARE_MOVEMENT_UP;}
     else if(anyOrdersBelow){DIRECTION.current=HARDWARE_MOVEMENT_DOWN;}
@@ -175,17 +168,19 @@ void UpdateMasterMatrixAndDirection(){
   }
   else if(DIRECTION.current==HARDWARE_MOVEMENT_STOP){
     switch(DIRECTION.last){
-
-    case 0:
+    case HARDWARE_MOVEMENT_UP:
     	if(anyOrdersAbove){DIRECTION.current=HARDWARE_MOVEMENT_UP;}
     	else if(anyOrdersBelow){DIRECTION.current=HARDWARE_MOVEMENT_DOWN;}
-    case 1:
+    	break;
+    case HARDWARE_MOVEMENT_DOWN:
     	if(anyOrdersBelow){DIRECTION.current=HARDWARE_MOVEMENT_DOWN;}
     	else if(anyOrdersAbove){DIRECTION.current=HARDWARE_MOVEMENT_UP;}
-    else{DIRECTION.current=HARDWARE_MOVEMENT_STOP;}}
-  }
+    	break;
+    case HARDWARE_MOVEMENT_STOP:
+    	break;
+    }}
+   else{DIRECTION.current=HARDWARE_MOVEMENT_STOP;}
 }
-hasStopped=0;}
 
 void initializeElevator() {
   bool OnAFloor = 0;
@@ -251,11 +246,11 @@ int checkOrdersBelow(int tempFloor){
 	return 0;
 }
 
-int hasStoppedFunction(){
-	int lowest = FLOOR.last - prevDirection; 
+void hasStoppedFunction(){
+	int lowest = FLOOR.last - DIRECTION.last; 
 	int highest = lowest + 1;
-	bool anyOrdersBelow=checkOrdersBelow(highest), anyOrdersAbove=checkOrdersAbove(lowest);
-	
+  updateDirection(checkOrdersBelow(highest), checkOrdersAbove(lowest));
+  }
 	
 
 

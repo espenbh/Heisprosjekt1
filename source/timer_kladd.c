@@ -3,26 +3,21 @@
 #include "timer.h"
 #include <stdio.h>
 
-volatile time_t TIMER;
+time_t TIMER=time(NULL);
 
-volatile void StartTimer() {
-  TIMER=clock();
+void StartTimer() {
+  TIMER=time(NULL);
 }
-volatile int TimerCount(){
-  return ((clock()-TIMER)/CLOCKS_PER_SEC);
-}
-
-volatile void Stoptimer() {
-  TIMER=0;
+int TimerCount(){
+  return (time(NULL)-TIMER);
 }
 
-// int main(){
-//   StartTimer();
-//   printf("Klokka starter, og er %d\n", TIMER);
-//   int a=0;
-//   while(TimerCount()<3){
-//     a=1;
-//   }
-//   printf("Timeren har gått i tre sekunder, og er %d", TIMER+TimerCount());
-//   return 0;
-// }
+
+int main(){
+  printf("Tiden er: %d", time(NULL));
+  while(TimerCount()<3){
+
+  }
+  printf("Tiden er nå 3 sek. senere; %d", time(NULL));
+  return 0;
+}

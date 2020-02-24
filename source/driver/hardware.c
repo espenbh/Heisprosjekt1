@@ -78,7 +78,7 @@ void hardware_command_movement(HardwareMovement movement){
             io_write_analog(MOTOR, 0);
             break;
 
-        case HARDWARE_ORDER_DOWN:
+        case HARDWARE_MOVEMENT_DOWN:
             io_set_bit(MOTORDIR);
             io_write_analog(MOTOR, 2800);
             break;

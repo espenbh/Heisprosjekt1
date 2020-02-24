@@ -7,8 +7,8 @@
 #include <stdbool.h>
 #include "variables.h"
 
-Direction DIRECTION;
-Floor FLOOR;
+Direction DIRECTION ={2,1};
+Floor FLOOR = {0, 0};
 //int currentFloors[4] = {0,0,0,0};
 int MASTER_MATRIX[3][4] = {{0, 0, 0, 0},{0, 0, 0, 0},{0, 0, 0, 0}};
 time_t TIMER;
@@ -66,8 +66,11 @@ int main(){
             stopFunction();
         }
         if(DIRECTION.current!=HARDWARE_MOVEMENT_STOP){
-        DIRECTION.last = DIRECTION.current-1; //Gir 0 for oppover og 1 for nedover
-    	if(DIRECTION.last<0){DIRECTION.last+=1;}
+        DIRECTION.last = DIRECTION.current;
+		}
+
+        if(FLOOR.current>-1){
+        FLOOR.last = FLOOR.current;
 		}
 
         if(prioritizeStop()){  //Sjekker om den ANKOMMER en etasje, og om MASTER_MATRIX har høye bit i etasjen
@@ -76,6 +79,11 @@ int main(){
         if(CheckIfLeave()){
             LeaveFloor();
         }
+        if (hasStopped)
+        {
+            hasStoppedFunction();
+        }
+        
 
         setOrdersAndOrderLights();//Masse if-setninger, hvis en knapp blir trykket, settes riktig bit i matrisen til høy, og lyset slås på
 
