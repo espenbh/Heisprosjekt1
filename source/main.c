@@ -58,5 +58,6 @@ int main()
         printf("%d",TimerCount());
         setOrdersAndOrderLights();
     }
-    return 0;
+  }
+  return 0;
 }

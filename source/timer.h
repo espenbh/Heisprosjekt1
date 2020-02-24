@@ -1,7 +1,22 @@
+/**
+* @file
+* @brief Functions to keep track of how long certain operations has last. */
+
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
 
+/**
+* @brief Starts the timer from scratch.
+* @param[out] TIMER Global timer variable. */
 void StartTimer();
-int TimerCount();
 
+/**
+* @brief Returns the time since the last call to @f StartTimer().
+* @param[in] TIMER Global timer variable.
+* @return Returns the number of seconds since the last call to @f StartTimer(). */
+int TimerCount();
+<<<<<<< HEAD
+
+=======
+>>>>>>> 6320bb809a9e94ff5b75d140c2ebba2c49b473c8
