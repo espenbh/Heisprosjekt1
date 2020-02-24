@@ -9,7 +9,6 @@
 
 int FLOOR;
 HardwareMovement DIRECTION;
-int currentFloors[4] = {0,0,0,0};
 int MASTER_MATRIX[3][4] = {{0, 0, 0, 0},{0, 0, 0, 0},{0, 0, 0, 0}};
 time_t TIMER;
 int prevDirection=1;

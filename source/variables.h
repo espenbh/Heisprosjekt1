@@ -5,7 +5,6 @@
 
 extern int FLOOR;
 extern HardwareMovement DIRECTION;
-extern int currentFloors[4];
 extern int MASTER_MATRIX[3][4];
 extern time_t TIMER;
 extern int prevDirection;
