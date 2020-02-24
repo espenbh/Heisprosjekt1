@@ -16,7 +16,4 @@ void StartTimer();
 * @param[in] TIMER Global timer variable.
 * @return Returns the number of seconds since the last call to @f StartTimer(). */
 int TimerCount();
-<<<<<<< HEAD
 
-=======
->>>>>>> 6320bb809a9e94ff5b75d140c2ebba2c49b473c8
