@@ -150,15 +150,12 @@ void setOrdersAndOrderLights() {
 }
 
 void UpdateMasterMatrixAndDirection(){
-	if(FLOOR>-1 || hasStopped==1){
+	if(FLOOR>-1){
 	  for(int i=0;i<3;i++){
 	  	hardware_command_order_light(FLOOR, i, 0);
 		MASTER_MATRIX[i][FLOOR]=0;
 	  }
   bool anyOrdersBelow=checkOrdersBelow(FLOOR), anyOrdersAbove=checkOrdersAbove(FLOOR);
-  //printf("Above:%d\n",anyOrdersAbove);
-  //printf("Below:%d\n",anyOrdersBelow);
-  //printf("%d\n",FLOOR);
   if(DIRECTION==HARDWARE_MOVEMENT_UP){
     if(anyOrdersAbove){DIRECTION=HARDWARE_MOVEMENT_UP;}
     else if(anyOrdersBelow){DIRECTION=HARDWARE_MOVEMENT_DOWN;}
@@ -245,3 +242,20 @@ int checkOrdersBelow(int tempFloor){
 	  }
 	return 0;
 }
+
+int hasStoppedFunction(){
+	int lowest = FLOOR.last - prevDirection; 
+	int highest = lowest + 1;
+	bool anyOrdersBelow=checkOrdersBelow(highest), anyOrdersAbove=checkOrdersAbove(lowest);
+	
+	
+
+
+
+
+
+
+
+
+
+	
