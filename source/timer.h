@@ -2,6 +2,6 @@
 #include <time.h>
 #include <stdbool.h>
 
-volatile void StartTimer();
-volatile int TimerCount();
-volatile void Stoptimer();
+void StartTimer();
+int TimerCount();
+void Stoptimer();
