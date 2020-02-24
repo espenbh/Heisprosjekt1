@@ -7,11 +7,12 @@
 #include <stdbool.h>
 #include "variables.h"
 
-int FLOOR;
-HardwareMovement DIRECTION;
+Direction DIRECTION;
+Floor FLOOR;
+//int currentFloors[4] = {0,0,0,0};
 int MASTER_MATRIX[3][4] = {{0, 0, 0, 0},{0, 0, 0, 0},{0, 0, 0, 0}};
 time_t TIMER;
-int prevDirection=1;
+//int prevDirection=1;
 int hasStopped = 0;
 
 
@@ -47,25 +48,26 @@ int main(){
         exit(1);
     }
     initializeElevator();
-    
+
 
     signal(SIGINT, sigint_handler);
 
+
     printf("=== Example Program ===\n");
     printf("Press the stop button on the elevator panel to exit\n");
-	
-	
+
+
     while(1){
-	
-        if(hardware_read_obstruction_signal() && FLOOR>-1 && hardware_read_door_open()){
+
+        if(hardware_read_obstruction_signal() && FLOOR.current>-1 && hardware_read_door_open()){
             StartTimer();
         }
         if(hardware_read_stop_signal()){
             stopFunction();
         }
-        if(DIRECTION!=HARDWARE_MOVEMENT_STOP){
-        prevDirection = DIRECTION-1; //Gir 0 for oppover og 1 for nedover
-    	if(prevDirection<0){prevDirection+=1;}
+        if(DIRECTION.current!=HARDWARE_MOVEMENT_STOP){
+        DIRECTION.last = DIRECTION.current-1; //Gir 0 for oppover og 1 for nedover
+    	if(DIRECTION.last<0){DIRECTION.last+=1;}
 		}
 
         if(prioritizeStop()){  //Sjekker om den ANKOMMER en etasje, og om MASTER_MATRIX har høye bit i etasjen
@@ -77,7 +79,7 @@ int main(){
 
         setOrdersAndOrderLights();//Masse if-setninger, hvis en knapp blir trykket, settes riktig bit i matrisen til høy, og lyset slås på
 
-        
+
     }
     return 0;
 }
