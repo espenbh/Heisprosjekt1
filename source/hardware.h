@@ -10,6 +10,7 @@
 #ifndef HARDWARE_H
 #define HARDWARE_H
 #define HARDWARE_NUMBER_OF_FLOORS 4
+#define HARDWARE_NUMBER_OF_ORDER_TYPES 3
 
 /**
  * @brief Movement type used in @c hardware_command_movement.
@@ -26,8 +27,8 @@ typedef enum {
  */
 typedef enum {
     HARDWARE_ORDER_UP,
-    HARDWARE_ORDER_INSIDE,
-    HARDWARE_ORDER_DOWN
+    HARDWARE_ORDER_DOWN,
+    HARDWARE_ORDER_INSIDE
 } HardwareOrder;
 
 /**
