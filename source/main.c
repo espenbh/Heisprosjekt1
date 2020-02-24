@@ -7,8 +7,6 @@
 #include <stdbool.h>
 #include "variables.h"
 
-
-
 Direction DIRECTION;
 Floor FLOOR;
 //int currentFloors[4] = {0,0,0,0};
