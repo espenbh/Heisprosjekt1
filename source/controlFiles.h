@@ -4,22 +4,13 @@
 #include "timer.h"
 #include "variables.h"
 
+void initializeElevator();
 int checkIfStop();
-int checkIfLeave();
 void arriveFloor();
 void leaveFloor();
-void setOrdersAndOrderLights();
-void deleteOrdersAndLightsOnCurrentFloor();
-void initializeElevator();
-void stopFunction();
-int checkOrdersAbove();
-int checkOrdersBelow();
-void hasStoppedFunction();
 void updateDirection();
+void setOrdersAndOrderLights();
+void stopFunction();
+void hasStoppedFunction();
 void checkForOrdersOnCurrentFloor();
 int checkForObstruction();
-void prioritizeAbove(int anyOrdersAbove, int anyOrdersBelow);
-void prioritizeBelow(int anyOrdersAbove, int anyOrdersBelow);
-int currentFloorIndicator();
-void resetOrderLights();
-void resetMasterMatrix();

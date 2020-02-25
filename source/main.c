@@ -11,10 +11,9 @@ Floor FLOOR = {0, 0};
 int MASTER_MATRIX[3][4] = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
 time_t TIMER;
 int hasStopped = 0;
-int hasLeft=0;
+int hasLeft = 0;
 
-static void sigint_handler(int sig)
-{
+static void sigint_handler(int sig){
     (void)(sig);
     printf("Terminating elevator\n");
     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
@@ -30,8 +29,9 @@ int main()
         exit(1);
     }
 
-    initializeElevator();
     signal(SIGINT, sigint_handler);
+
+    initializeElevator();
 
     while (1)
     {
