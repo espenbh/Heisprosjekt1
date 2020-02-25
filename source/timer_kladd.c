@@ -5,19 +5,10 @@
 
 time_t TIMER;
 
-void StartTimer() {
+void startTimer() {
   TIMER=time(NULL);
 }
-int TimerCount(){
+int timerCount(){
   return (time(NULL)-TIMER);
 }
 
-/*
-int main(){
-  printf("Tiden er: %d", time(NULL));
-  while(TimerCount()<3){
-
-  }
-  printf("Tiden er nå 3 sek. senere; %d", time(NULL));
-  return 0;
-}*/
