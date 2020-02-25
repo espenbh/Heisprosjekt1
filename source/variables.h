@@ -42,3 +42,5 @@ extern time_t TIMER;
 * @breif A flag thats high when the last order
 * the elevator received was stop.*/
 extern int hasStopped;
+
+extern int hasLeft;

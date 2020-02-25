@@ -38,37 +38,23 @@ int checkIfStop()
   return 0;
 }
 
-int checkIfLeave()
-{
-  if (TimerCount() >= 3)
-  {
-    return 1;
-  }
-  return 0;
-}
-
 void arriveFloor()
 {
-  hardware_command_movement(HARDWARE_MOVEMENT_STOP); 
+  if(hasLeft!=1){
+  hardware_command_movement(HARDWARE_MOVEMENT_STOP);
   StartTimer();
   hardware_command_door_open(1);
+  deleteOrdersOnCurrentFloor();
   for (int i = 0; i < HARDWARE_NUMBER_OF_ORDER_TYPES; i++){
     hardware_command_order_light(FLOOR.current, i, 0);
   }
 }
+}
 
 void leaveFloor(){
+  if (TimerCount() >= 3){
   if (FLOOR.current > -1){
     hardware_command_door_open(0);
-    for (int i = 0; i < HARDWARE_NUMBER_OF_ORDER_TYPES; i++)
-    {
-      if (MASTER_MATRIX[i][FLOOR.current] == 1)
-      {
-        StartTimer();
-        hardware_command_door_open(1);
-      }
-    }
-    deleteOrdersOnCurrentFloor();
     updateDirection(checkOrdersAbove(FLOOR.current), checkOrdersBelow(FLOOR.current));
   }
   switch (DIRECTION.current)
@@ -77,17 +63,19 @@ void leaveFloor(){
       hardware_command_movement(HARDWARE_MOVEMENT_UP);
       hardware_command_door_open(0);
       FLOOR.current = -1;
+      hasLeft = 1;
       break;
     case HARDWARE_MOVEMENT_DOWN:
       hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
       hardware_command_door_open(0);
       FLOOR.current = -1;
+      hasLeft = 1;
       break;
     case HARDWARE_MOVEMENT_STOP:
       hardware_command_movement(HARDWARE_MOVEMENT_STOP);
       break;
     }
-  
+  }
 }
 
 void setOrdersAndOrderLights()
@@ -96,7 +84,7 @@ void setOrdersAndOrderLights()
     for (int tempFloor = 0; tempFloor < HARDWARE_NUMBER_OF_FLOORS; tempFloor++){
       if (!(tempOrder==0 && tempFloor==3) || !(tempOrder==1 && tempFloor==0)) //Knappene finnes ikke
       {
-        if (hardware_read_order(tempFloor, tempOrder)){ 
+        if (hardware_read_order(tempFloor, tempOrder)){
           MASTER_MATRIX[tempOrder][tempFloor] = 1;
           hardware_command_order_light(tempFloor, tempOrder, 1);
         }
@@ -204,6 +192,7 @@ void stopFunction()
 {
   hardware_command_movement(HARDWARE_MOVEMENT_STOP);
   hasStopped = 1;
+  hasLeft = 0;
   for (int i = 0; i < HARDWARE_NUMBER_OF_ORDER_TYPES; i++){
     for (int j = 0; j < HARDWARE_NUMBER_OF_FLOORS; j++){
       hardware_command_order_light(j, i, 0);
@@ -223,6 +212,7 @@ void stopFunction()
     {
       StartTimer();
     }
+
   }
   DIRECTION.current = HARDWARE_MOVEMENT_STOP;
   hardware_command_stop_light(0);
@@ -255,4 +245,14 @@ void hasStoppedFunction(){
   int lowest = FLOOR.last - DIRECTION.last;
   int highest = lowest + 1;
   updateDirection(checkOrdersAbove(lowest), checkOrdersBelow(highest));
+}
+
+void checkForOrdersOnCurrentFloor(){
+  for (int i = 0; i < HARDWARE_NUMBER_OF_ORDER_TYPES; i++)
+  {
+    if (MASTER_MATRIX[i][FLOOR.current] == 1)
+    {
+     arriveFloor();
+    }
+  }
 }

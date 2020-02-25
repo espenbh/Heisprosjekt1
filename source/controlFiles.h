@@ -16,3 +16,5 @@ int checkOrdersAbove();
 int checkOrdersBelow();
 void hasStoppedFunction();
 void updateDirection();
+void checkForOrdersOnCurrentFloor();
+
