@@ -123,5 +123,8 @@ void hardware_command_stop_light(int on);
  */
 void hardware_command_order_light(int floor, HardwareOrder order_type, int on);
 
+/**
+ * @brief Polls the hardware for whether or not the door is open.
+ * @return 1 of the door is open, 0 if it is not.*/
 int hardware_read_door_open();
 #endif
