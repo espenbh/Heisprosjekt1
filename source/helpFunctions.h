@@ -1,6 +1,6 @@
 /**
 * @file
-* @brief Small functions with intuitive behavior that are used in @c helpFunctions.c.
+* @brief Small functions with intuitive behavior that are used in @c elevatorLogic.c
 *  */
 
 #include <stdio.h>

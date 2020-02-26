@@ -1,3 +1,8 @@
+/**
+ * @file
+ * @brief Implementation file for helpFunctions
+ */
+
 #include "helpFunctions.h"
 
 void resetOrderLights() {

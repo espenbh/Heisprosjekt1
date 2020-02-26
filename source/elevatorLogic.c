@@ -1,3 +1,8 @@
+/**
+ * @file
+ * @brief Implementation file for memory library
+ */
+
 #include "controlFiles.h"
 
 void initializeElevator(){
@@ -38,7 +43,7 @@ int checkIfStop(){
 }
 
 void arriveFloor(){
-  if(!hasLeft){
+  if(!hasJustLeft){
     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
     startTimer();
     hardware_command_door_open(1);
@@ -47,7 +52,7 @@ void arriveFloor(){
 }
 
 void leaveFloor(){
-  if (timerCount() >= 3){
+  if (timerCount() >= TIMER_WAIT_CONSTANT){
     if (FLOOR.current > -1){
       hardware_command_door_open(0);
       updateDirection(checkOrdersAbove(FLOOR.current), checkOrdersBelow(FLOOR.current));
@@ -58,13 +63,13 @@ void leaveFloor(){
       hardware_command_movement(HARDWARE_MOVEMENT_UP);
       hardware_command_door_open(0);
       FLOOR.current = -1;
-      hasLeft = 1;
+      hasJustLeft = 1;
       break;
     case HARDWARE_MOVEMENT_DOWN:
       hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
       hardware_command_door_open(0); //trenger vi disse
       FLOOR.current = -1;
-      hasLeft = 1;
+      hasJustLeft = 1;
       break;
     case HARDWARE_MOVEMENT_STOP:
       hardware_command_movement(HARDWARE_MOVEMENT_STOP);
@@ -112,7 +117,7 @@ void stopFunction(){
   hardware_command_movement(HARDWARE_MOVEMENT_STOP);
   DIRECTION.current = HARDWARE_MOVEMENT_STOP;
   hasStopped = 1;
-  hasLeft = 0;
+  hasJustLeft = 0;
 
   resetMasterMatrix();
   resetOrderLights();

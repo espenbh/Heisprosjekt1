@@ -1,9 +1,14 @@
+/**
+ * @file
+ * @brief The main file of the application
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
 #include "hardware.h"
 #include "timer.h"
-#include "controlFiles.h"
+#include "elevatorLogic.h"
 #include "variables.h"
 
 Direction DIRECTION = {1, 1};
@@ -11,7 +16,7 @@ Floor FLOOR = {0, 0};
 int MASTER_MATRIX[3][4] = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
 time_t TIMER;
 int hasStopped = 0;
-int hasLeft = 0;
+int hasJustLeft = 0;
 
 static void sigint_handler(int sig){
     (void)(sig);
@@ -53,7 +58,7 @@ int main()
         checkForOrdersOnCurrentFloor();
 
         if (DIRECTION.current != HARDWARE_MOVEMENT_STOP){DIRECTION.last = DIRECTION.current;}
-        if (!hardware_read_floor_sensor(FLOOR.last)){hasLeft=0;}
+        if (!hardware_read_floor_sensor(FLOOR.last)){hasJustLeft=0;}
 
     }
   return 0;

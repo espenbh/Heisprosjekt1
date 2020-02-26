@@ -39,8 +39,10 @@ extern int MASTER_MATRIX[3][4];
 extern time_t TIMER;
 
 /**
-* @breif A flag thats high when the last order
+* @brief A flag thats high when the last order
 * the elevator received was stop.*/
 extern int hasStopped;
 
-extern int hasLeft;
+/**
+* @brief A flag that is set high while the elevator has just started moving, but the floor sensor still believes it to be at the floor.*/
+extern int hasJustLeft;

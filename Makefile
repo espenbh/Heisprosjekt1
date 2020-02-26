@@ -1,4 +1,4 @@
-SOURCES := main.c controlFiles_kladd.c timer_kladd.c
+SOURCES := main.c elevatorLogic.c timer.c
 
 SOURCE_DIR := source
 BUILD_DIR := build
