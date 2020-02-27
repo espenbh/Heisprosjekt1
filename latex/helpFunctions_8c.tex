@@ -1,0 +1,152 @@
+\hypertarget{helpFunctions_8c}{}\section{source/help\+Functions.c File Reference}
+\label{helpFunctions_8c}\index{source/help\+Functions.\+c@{source/help\+Functions.\+c}}
+
+
+Implementation file for help\+Functions.  
+
+
+{\ttfamily \#include \char`\"{}help\+Functions.\+h\char`\"{}}\newline
+Include dependency graph for help\+Functions.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{helpFunctions_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{helpFunctions_8c_a61a48c375e1f6c6081f2ba2d9b2bfa02}\label{helpFunctions_8c_a61a48c375e1f6c6081f2ba2d9b2bfa02}} 
+void \hyperlink{helpFunctions_8c_a61a48c375e1f6c6081f2ba2d9b2bfa02}{reset\+Order\+Lights} ()
+\begin{DoxyCompactList}\small\item\em Turns of all the order lights in all the floor. \end{DoxyCompactList}\item 
+int \hyperlink{helpFunctions_8c_a075e1a379615b6e7f19462d62e7632df}{current\+Floor\+Indicator} ()
+\begin{DoxyCompactList}\small\item\em Polls the floor indicator, and investigate whether any floor indicator is active. \end{DoxyCompactList}\item 
+int \hyperlink{helpFunctions_8c_a5c77a8069f77f5b3cd9f10825cb42a94}{check\+Orders\+Above} (int temp\+Floor)
+\begin{DoxyCompactList}\small\item\em Checks for orders above {\ttfamily temp\+Floor}. \end{DoxyCompactList}\item 
+int \hyperlink{helpFunctions_8c_a08aef5b9acc1000125ba037df9407ee6}{check\+Orders\+Below} (int temp\+Floor)
+\begin{DoxyCompactList}\small\item\em Checks for orders below {\ttfamily temp\+Floor}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{helpFunctions_8c_ae2fed0d6439ee5fcf11d14dde925a7f1}\label{helpFunctions_8c_ae2fed0d6439ee5fcf11d14dde925a7f1}} 
+void \hyperlink{helpFunctions_8c_ae2fed0d6439ee5fcf11d14dde925a7f1}{delete\+Orders\+And\+Lights\+On\+Current\+Floor} ()
+\begin{DoxyCompactList}\small\item\em Turns of all the order lights, and sets every bit in {\ttfamily M\+A\+S\+T\+E\+R\+\_\+\+M\+A\+T\+R\+IX} to 0. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{helpFunctions_8c_a928e32686c7e00c1ecde24c3da3019f7}\label{helpFunctions_8c_a928e32686c7e00c1ecde24c3da3019f7}} 
+void \hyperlink{helpFunctions_8c_a928e32686c7e00c1ecde24c3da3019f7}{drive} ()
+\begin{DoxyCompactList}\small\item\em Switch on {\ttfamily D\+I\+R\+E\+C\+T\+I\+O\+N.\+current}, drives the elevator. \end{DoxyCompactList}\item 
+void \hyperlink{helpFunctions_8c_a8abbfc0f7edd7c8e29b38e188cf353ff}{prioritize\+Above} (int any\+Orders\+Above, int any\+Orders\+Below)
+\begin{DoxyCompactList}\small\item\em Sets direction to the elevator based on a case where upwards motion is prefered. \end{DoxyCompactList}\item 
+void \hyperlink{helpFunctions_8c_ae891e30f5c407da7548d74526d3dd442}{prioritize\+Below} (int any\+Orders\+Above, int any\+Orders\+Below)
+\begin{DoxyCompactList}\small\item\em Sets direction to the elevator based on a case where downwards motion is prefered. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{helpFunctions_8c_a1535383fe7904afaf583005bdf7c8174}\label{helpFunctions_8c_a1535383fe7904afaf583005bdf7c8174}} 
+void \hyperlink{helpFunctions_8c_a1535383fe7904afaf583005bdf7c8174}{reset\+Master\+Matrix} ()
+\begin{DoxyCompactList}\small\item\em Sets every bit in {\ttfamily M\+A\+S\+T\+E\+R\+\_\+\+M\+A\+T\+R\+IX} to 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implementation file for help\+Functions. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{helpFunctions_8c_a5c77a8069f77f5b3cd9f10825cb42a94}\label{helpFunctions_8c_a5c77a8069f77f5b3cd9f10825cb42a94}} 
+\index{help\+Functions.\+c@{help\+Functions.\+c}!check\+Orders\+Above@{check\+Orders\+Above}}
+\index{check\+Orders\+Above@{check\+Orders\+Above}!help\+Functions.\+c@{help\+Functions.\+c}}
+\subsubsection{\texorpdfstring{check\+Orders\+Above()}{checkOrdersAbove()}}
+{\footnotesize\ttfamily int check\+Orders\+Above (\begin{DoxyParamCaption}\item[{int}]{temp\+Floor }\end{DoxyParamCaption})}
+
+
+
+Checks for orders above {\ttfamily temp\+Floor}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp\+Floor} & the floor number that are used when searching for orders. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if no orders above . 1 if any orders above . 
+\end{DoxyReturn}
+
+
+Definition at line 25 of file help\+Functions.\+c.
+
+\mbox{\Hypertarget{helpFunctions_8c_a08aef5b9acc1000125ba037df9407ee6}\label{helpFunctions_8c_a08aef5b9acc1000125ba037df9407ee6}} 
+\index{help\+Functions.\+c@{help\+Functions.\+c}!check\+Orders\+Below@{check\+Orders\+Below}}
+\index{check\+Orders\+Below@{check\+Orders\+Below}!help\+Functions.\+c@{help\+Functions.\+c}}
+\subsubsection{\texorpdfstring{check\+Orders\+Below()}{checkOrdersBelow()}}
+{\footnotesize\ttfamily int check\+Orders\+Below (\begin{DoxyParamCaption}\item[{int}]{temp\+Floor }\end{DoxyParamCaption})}
+
+
+
+Checks for orders below {\ttfamily temp\+Floor}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp\+Floor} & the floor number that are used when searching for orders. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if no orders below . 1 if any orders below . 
+\end{DoxyReturn}
+
+
+Definition at line 36 of file help\+Functions.\+c.
+
+\mbox{\Hypertarget{helpFunctions_8c_a075e1a379615b6e7f19462d62e7632df}\label{helpFunctions_8c_a075e1a379615b6e7f19462d62e7632df}} 
+\index{help\+Functions.\+c@{help\+Functions.\+c}!current\+Floor\+Indicator@{current\+Floor\+Indicator}}
+\index{current\+Floor\+Indicator@{current\+Floor\+Indicator}!help\+Functions.\+c@{help\+Functions.\+c}}
+\subsubsection{\texorpdfstring{current\+Floor\+Indicator()}{currentFloorIndicator()}}
+{\footnotesize\ttfamily int current\+Floor\+Indicator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Polls the floor indicator, and investigate whether any floor indicator is active. 
+
+\begin{DoxyReturn}{Returns}
+the floor number of the floor indicator that is active. -\/1 if no indicator is active. 
+\end{DoxyReturn}
+
+
+Definition at line 16 of file help\+Functions.\+c.
+
+\mbox{\Hypertarget{helpFunctions_8c_a8abbfc0f7edd7c8e29b38e188cf353ff}\label{helpFunctions_8c_a8abbfc0f7edd7c8e29b38e188cf353ff}} 
+\index{help\+Functions.\+c@{help\+Functions.\+c}!prioritize\+Above@{prioritize\+Above}}
+\index{prioritize\+Above@{prioritize\+Above}!help\+Functions.\+c@{help\+Functions.\+c}}
+\subsubsection{\texorpdfstring{prioritize\+Above()}{prioritizeAbove()}}
+{\footnotesize\ttfamily void prioritize\+Above (\begin{DoxyParamCaption}\item[{int}]{any\+Orders\+Above,  }\item[{int}]{any\+Orders\+Below }\end{DoxyParamCaption})}
+
+
+
+Sets direction to the elevator based on a case where upwards motion is prefered. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em any\+Orders\+Above} & lets the function know whether the elevator has an order above or not. \\
+\hline
+{\em any\+Ordersbelow} & lets the function know whether the elevator has an order below or not. {\ttfamily has\+Stopped} this flag gets updated based on the direction the function sets. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 81 of file help\+Functions.\+c.
+
+\mbox{\Hypertarget{helpFunctions_8c_ae891e30f5c407da7548d74526d3dd442}\label{helpFunctions_8c_ae891e30f5c407da7548d74526d3dd442}} 
+\index{help\+Functions.\+c@{help\+Functions.\+c}!prioritize\+Below@{prioritize\+Below}}
+\index{prioritize\+Below@{prioritize\+Below}!help\+Functions.\+c@{help\+Functions.\+c}}
+\subsubsection{\texorpdfstring{prioritize\+Below()}{prioritizeBelow()}}
+{\footnotesize\ttfamily void prioritize\+Below (\begin{DoxyParamCaption}\item[{int}]{any\+Orders\+Above,  }\item[{int}]{any\+Orders\+Below }\end{DoxyParamCaption})}
+
+
+
+Sets direction to the elevator based on a case where downwards motion is prefered. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em any\+Orders\+Above} & lets the function know whether the elevator has an order above or not. \\
+\hline
+{\em any\+Ordersbelow} & lets the function know whether the elevator has an order below or not. {\ttfamily has\+Stopped} this flag gets updated based on the direction the function sets. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 87 of file help\+Functions.\+c.
+

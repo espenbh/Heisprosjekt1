@@ -14,7 +14,6 @@
 Direction DIRECTION = {1, 1};
 Floor FLOOR = {0, 0};
 int MASTER_MATRIX[3][4] = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
-time_t TIMER;
 int hasStopped = 0;
 int hasJustLeft = 0;
 

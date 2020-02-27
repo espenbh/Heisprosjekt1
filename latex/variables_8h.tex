@@ -1,0 +1,60 @@
+\hypertarget{variables_8h}{}\section{source/variables.h File Reference}
+\label{variables_8h}\index{source/variables.\+h@{source/variables.\+h}}
+
+
+Define global variables.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}hardware.\+h\char`\"{}}\newline
+Include dependency graph for variables.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{variables_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{variables_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structFloor}{Floor}
+\begin{DoxyCompactList}\small\item\em Define a struct to keep track of current and previous floors. \end{DoxyCompactList}\item 
+struct \hyperlink{structDirection}{Direction}
+\begin{DoxyCompactList}\small\item\em Define a struct to keep track of current and previous direction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{variables_8h_a53ea4b6a32d28f4e1bc1f26eb7159ac8}\label{variables_8h_a53ea4b6a32d28f4e1bc1f26eb7159ac8}} 
+\hyperlink{structFloor}{Floor} {\bfseries F\+L\+O\+OR}
+\item 
+\mbox{\Hypertarget{variables_8h_a486546968fa5431c0bb5ef280bb3dd8a}\label{variables_8h_a486546968fa5431c0bb5ef280bb3dd8a}} 
+\hyperlink{structDirection}{Direction} {\bfseries D\+I\+R\+E\+C\+T\+I\+ON}
+\item 
+\mbox{\Hypertarget{variables_8h_ae8f980abc1e0175bd1dbf8afab7a8710}\label{variables_8h_ae8f980abc1e0175bd1dbf8afab7a8710}} 
+int \hyperlink{variables_8h_ae8f980abc1e0175bd1dbf8afab7a8710}{M\+A\+S\+T\+E\+R\+\_\+\+M\+A\+T\+R\+IX} \mbox{[}3\mbox{]}\mbox{[}4\mbox{]}
+\begin{DoxyCompactList}\small\item\em A matrix that keeps track of orders. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{variables_8h_afe81f8fe13b920b0ee7dd9897afb7f82}\label{variables_8h_afe81f8fe13b920b0ee7dd9897afb7f82}} 
+time\+\_\+t {\bfseries T\+I\+M\+ER}
+\item 
+\mbox{\Hypertarget{variables_8h_a035d122c383cb498e4694dd187ff33b1}\label{variables_8h_a035d122c383cb498e4694dd187ff33b1}} 
+int \hyperlink{variables_8h_a035d122c383cb498e4694dd187ff33b1}{has\+Stopped}
+\begin{DoxyCompactList}\small\item\em A flag thats high when the last order the elevator received was stop. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{variables_8h_ab6844c36df1cb99045ec19816f47cb53}\label{variables_8h_ab6844c36df1cb99045ec19816f47cb53}} 
+int \hyperlink{variables_8h_ab6844c36df1cb99045ec19816f47cb53}{has\+Just\+Left}
+\begin{DoxyCompactList}\small\item\em A flag that is set high while the elevator has just started moving, but the floor sensor still believes it to be at the floor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Define global variables. 
+

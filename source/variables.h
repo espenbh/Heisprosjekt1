@@ -36,7 +36,6 @@ extern Direction DIRECTION;
 /**
 * @brief A matrix that keeps track of orders. */
 extern int MASTER_MATRIX[3][4];
-extern time_t TIMER;
 
 /**
 * @brief A flag thats high when the last order

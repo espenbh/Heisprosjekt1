@@ -1,0 +1,89 @@
+\hypertarget{elevatorLogic_8c}{}\section{source/elevator\+Logic.c File Reference}
+\label{elevatorLogic_8c}\index{source/elevator\+Logic.\+c@{source/elevator\+Logic.\+c}}
+
+
+Implementation file elevator logic.  
+
+
+{\ttfamily \#include \char`\"{}elevator\+Logic.\+h\char`\"{}}\newline
+Include dependency graph for elevator\+Logic.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{elevatorLogic_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{elevatorLogic_8c_a5b7e520dd3634bc511e199023a2a4ad5}\label{elevatorLogic_8c_a5b7e520dd3634bc511e199023a2a4ad5}} 
+void \hyperlink{elevatorLogic_8c_a5b7e520dd3634bc511e199023a2a4ad5}{initialize\+Elevator} ()
+\begin{DoxyCompactList}\small\item\em Resets lights, and drives down until the elevator reaches a floor sensor. Saves this floor as {\ttfamily F\+L\+O\+O\+R.\+current} and {\ttfamily F\+L\+O\+O\+R.\+last}. \end{DoxyCompactList}\item 
+int \hyperlink{elevatorLogic_8c_acb58ac12f71a53ca9d454ea0bef0859c}{check\+If\+Stop} ()
+\begin{DoxyCompactList}\small\item\em When the elevator is moving and reaches a floor, the floor indicator lights up, {\ttfamily F\+L\+O\+O\+R.\+last} is set, and it decides whether or not to stop at this floor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{elevatorLogic_8c_a0348ac8c5f50ff4dd510de9905f5d858}\label{elevatorLogic_8c_a0348ac8c5f50ff4dd510de9905f5d858}} 
+void \hyperlink{elevatorLogic_8c_a0348ac8c5f50ff4dd510de9905f5d858}{arrive\+Floor} ()
+\begin{DoxyCompactList}\small\item\em As long as the {\ttfamily has\+Just\+Left} flag is not set, this function stops the elevator, starts the timer, open the door, and deletes the order to the current floor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{elevatorLogic_8c_a8259fdde833753b6f23004be29dbb56c}\label{elevatorLogic_8c_a8259fdde833753b6f23004be29dbb56c}} 
+void \hyperlink{elevatorLogic_8c_a8259fdde833753b6f23004be29dbb56c}{leave\+Floor} ()
+\begin{DoxyCompactList}\small\item\em When the timer reaches 3 seconds and the elevator is not moving, the door is closed and new orders are looked for using {\ttfamily \hyperlink{elevatorLogic_8h_a949e2c521323a4e0d2c37c79c275def5}{update\+Direction()}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{elevatorLogic_8c_a2c615610a51b585d757c6fd48c0ea577}\label{elevatorLogic_8c_a2c615610a51b585d757c6fd48c0ea577}} 
+void {\bfseries update\+Direction} (int any\+Orders\+Above, int any\+Orders\+Below)
+\item 
+\mbox{\Hypertarget{elevatorLogic_8c_a98ff2b0015e3c6361fdeec413d689f30}\label{elevatorLogic_8c_a98ff2b0015e3c6361fdeec413d689f30}} 
+void \hyperlink{elevatorLogic_8c_a98ff2b0015e3c6361fdeec413d689f30}{set\+Orders\+And\+Order\+Lights} ()
+\begin{DoxyCompactList}\small\item\em Polls all order buttons, and sets {\ttfamily M\+A\+S\+T\+E\+R\+\_\+\+M\+A\+T\+R\+IX} and the corresponding light if any buttons are pushed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{elevatorLogic_8c_a19e50b36bc41e271ad3d4e4ac86bb9c3}\label{elevatorLogic_8c_a19e50b36bc41e271ad3d4e4ac86bb9c3}} 
+void \hyperlink{elevatorLogic_8c_a19e50b36bc41e271ad3d4e4ac86bb9c3}{stop\+Function} ()
+\begin{DoxyCompactList}\small\item\em Stops the elevator, sets {\ttfamily has\+Stopped} to 1 and flushes all orders. If the elevator is at a floor, the door is opened. Sets the stoplight. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{elevatorLogic_8c_af80114ed5f35a4a3facbf60811b46821}\label{elevatorLogic_8c_af80114ed5f35a4a3facbf60811b46821}} 
+void \hyperlink{elevatorLogic_8c_af80114ed5f35a4a3facbf60811b46821}{has\+Stopped\+Function} ()
+\begin{DoxyCompactList}\small\item\em If the elevator has stopped between two floors, this function determines these two floors and calls {\ttfamily \hyperlink{elevatorLogic_8h_a949e2c521323a4e0d2c37c79c275def5}{update\+Direction()}} with the result as the two parameters. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{elevatorLogic_8c_a629b2358b6d36a8f0312246b38c962eb}\label{elevatorLogic_8c_a629b2358b6d36a8f0312246b38c962eb}} 
+void \hyperlink{elevatorLogic_8c_a629b2358b6d36a8f0312246b38c962eb}{check\+For\+Orders\+On\+Current\+Floor} ()
+\begin{DoxyCompactList}\small\item\em If the elevator is ordered at its {\ttfamily F\+L\+O\+O\+R.\+current}, {\ttfamily \hyperlink{elevatorLogic_8h_a0348ac8c5f50ff4dd510de9905f5d858}{arrive\+Floor()}} is called. \end{DoxyCompactList}\item 
+int \hyperlink{elevatorLogic_8c_a59e7425ac35298bb95a7c2d224a87d98}{check\+For\+Obstruction} ()
+\begin{DoxyCompactList}\small\item\em Determines wheter the obstruction switch should have any effect. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implementation file elevator logic. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{elevatorLogic_8c_a59e7425ac35298bb95a7c2d224a87d98}\label{elevatorLogic_8c_a59e7425ac35298bb95a7c2d224a87d98}} 
+\index{elevator\+Logic.\+c@{elevator\+Logic.\+c}!check\+For\+Obstruction@{check\+For\+Obstruction}}
+\index{check\+For\+Obstruction@{check\+For\+Obstruction}!elevator\+Logic.\+c@{elevator\+Logic.\+c}}
+\subsubsection{\texorpdfstring{check\+For\+Obstruction()}{checkForObstruction()}}
+{\footnotesize\ttfamily int check\+For\+Obstruction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Determines wheter the obstruction switch should have any effect. 
+
+\begin{DoxyReturn}{Returns}
+1 if the obstruction switch should affect the elevator, 0 if not. 
+\end{DoxyReturn}
+
+
+Definition at line 147 of file elevator\+Logic.\+c.
+
+\mbox{\Hypertarget{elevatorLogic_8c_acb58ac12f71a53ca9d454ea0bef0859c}\label{elevatorLogic_8c_acb58ac12f71a53ca9d454ea0bef0859c}} 
+\index{elevator\+Logic.\+c@{elevator\+Logic.\+c}!check\+If\+Stop@{check\+If\+Stop}}
+\index{check\+If\+Stop@{check\+If\+Stop}!elevator\+Logic.\+c@{elevator\+Logic.\+c}}
+\subsubsection{\texorpdfstring{check\+If\+Stop()}{checkIfStop()}}
+{\footnotesize\ttfamily int check\+If\+Stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+When the elevator is moving and reaches a floor, the floor indicator lights up, {\ttfamily F\+L\+O\+O\+R.\+last} is set, and it decides whether or not to stop at this floor. 
+
+\begin{DoxyReturn}{Returns}
+0 if the elevator is to drive past the floor. 1 to stop. 
+\end{DoxyReturn}
+
+
+Definition at line 25 of file elevator\+Logic.\+c.
+
