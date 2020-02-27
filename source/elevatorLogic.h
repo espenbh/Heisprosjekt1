@@ -7,6 +7,7 @@
 #include "hardware.h"
 #include "timer.h"
 #include "variables.h"
+#include "helpFunctions.h"
 
 /**
  * @brief Resets lights, and drives down until the elevator reaches a floor sensor. Saves this floor as @p FLOOR.current and @p FLOOR.last*/
@@ -22,7 +23,7 @@ int checkIfStop();
 void arriveFloor();
 
 /**
- * @brief When the timer reaches 3 seconds and the elevator is not moving, the door is closed and new orders are looked for using @p updateDirection(). If @p DIRECTION.current changes, the elevator starts moving in the given direction.*/
+ * @brief When the timer reaches 3 seconds and the elevator is not moving, the door is closed and new orders are looked for using @p updateDirection().*/
 void leaveFloor();
 
 /**

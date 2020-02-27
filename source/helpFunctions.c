@@ -53,6 +53,31 @@ void deleteOrdersAndLightsOnCurrentFloor(){
   }
 }
 
+
+void drive(){
+  switch (DIRECTION.current)
+    {
+    case HARDWARE_MOVEMENT_UP:
+      hardware_command_movement(HARDWARE_MOVEMENT_UP);
+      hardware_command_door_open(0);
+      FLOOR.current = -1;
+      hasJustLeft = 1;
+
+      break;
+    case HARDWARE_MOVEMENT_DOWN:
+      hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+      hardware_command_door_open(0);
+      FLOOR.current = -1;
+      hasJustLeft = 1;
+
+      break;
+    case HARDWARE_MOVEMENT_STOP:
+      hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+      hardware_command_door_open(0);
+      break;
+    }
+}
+
 void prioritizeAbove(int anyOrdersAbove, int anyOrdersBelow){
   if (anyOrdersAbove){DIRECTION.current = HARDWARE_MOVEMENT_UP;hasStopped=0;}
   else if (anyOrdersBelow){DIRECTION.current = HARDWARE_MOVEMENT_DOWN;hasStopped=0;}

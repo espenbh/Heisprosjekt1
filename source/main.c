@@ -55,9 +55,15 @@ int main()
             hardware_command_door_open(1);
         }
 
+        printf("Floor last: %d\n",FLOOR.last);
+        printf("Floor current: %d\n",FLOOR.current);
+        printf("DIrection last: %d\n",DIRECTION.last);
+        printf("DIrection current: %d\n",DIRECTION.current);
+        printf("%d\n",hasJustLeft);
+
         checkForOrdersOnCurrentFloor();
 
-        if (DIRECTION.current != HARDWARE_MOVEMENT_STOP){DIRECTION.last = DIRECTION.current;}
+        if (DIRECTION.current != HARDWARE_MOVEMENT_STOP&& currentFloorIndicator()>-1){DIRECTION.last = DIRECTION.current;}
         if (!hardware_read_floor_sensor(FLOOR.last)){hasJustLeft=0;}
 
     }

@@ -1,9 +1,9 @@
 /**
  * @file
- * @brief Implementation file for memory library
+ * @brief Implementation file elevator logic.
  */
 
-#include "controlFiles.h"
+#include "elevatorLogic.h"
 
 void initializeElevator(){
   int OnAFloor = 0;
@@ -23,7 +23,7 @@ void initializeElevator(){
 
 
 int checkIfStop(){
-  tempFloor=currentFloorIndicator();
+  int tempFloor=currentFloorIndicator();
   if (tempFloor>-1 && FLOOR.current == -1){
     hardware_command_floor_indicator_on(tempFloor);
     FLOOR.last=tempFloor;
@@ -52,29 +52,9 @@ void arriveFloor(){
 }
 
 void leaveFloor(){
-  if (timerCount() >= TIMER_WAIT_CONSTANT){
-    if (FLOOR.current > -1){
-      hardware_command_door_open(0);
+  if (timerCount() >= TIMER_WAIT_CONSTANT && FLOOR.current>-1){
       updateDirection(checkOrdersAbove(FLOOR.current), checkOrdersBelow(FLOOR.current));
-    }
-  switch (DIRECTION.current)
-    {
-    case HARDWARE_MOVEMENT_UP:
-      hardware_command_movement(HARDWARE_MOVEMENT_UP);
-      hardware_command_door_open(0);
-      FLOOR.current = -1;
-      hasJustLeft = 1;
-      break;
-    case HARDWARE_MOVEMENT_DOWN:
-      hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
-      hardware_command_door_open(0); //trenger vi disse
-      FLOOR.current = -1;
-      hasJustLeft = 1;
-      break;
-    case HARDWARE_MOVEMENT_STOP:
-      hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-      break;
-    }
+      drive();
   }
 }
 
@@ -119,9 +99,6 @@ void stopFunction(){
   hasStopped = 1;
   hasJustLeft = 0;
 
-  resetMasterMatrix();
-  resetOrderLights();
-
   if (currentFloorIndicator()>-1){
     hardware_command_door_open(1);
     FLOOR.current = currentFloorIndicator();
@@ -131,28 +108,42 @@ void stopFunction(){
 
   while (hardware_read_stop_signal() || timerCount() < TIMER_WAIT_CONSTANT){
     if (hardware_read_stop_signal()){
+      hardware_command_stop_light(1);
       startTimer();
+      resetMasterMatrix();
+      resetOrderLights();
+    }
+    if (!hardware_read_stop_signal()){
+      hardware_command_stop_light(0);
+      setOrdersAndOrderLights();
+      checkForOrdersOnCurrentFloor();
     }
   }
 
-  hardware_command_stop_light(0);
-  hardware_command_door_open(0);
+  if (!checkForObstruction()){hardware_command_door_open(0);}
+
 }
 
 void hasStoppedFunction(){
   int floorBelow = FLOOR.last - DIRECTION.last;
   int floorAbove = floorBelow + 1;
   updateDirection(checkOrdersAbove(floorBelow), checkOrdersBelow(floorAbove));
+  drive();
 }
 
 void checkForOrdersOnCurrentFloor(){
-  for (int i = 0; i < HARDWARE_NUMBER_OF_ORDER_TYPES; i++){
-    if (MASTER_MATRIX[i][FLOOR.current] == 1){
-     arriveFloor();
+  if(FLOOR.current>-1){
+    for (int i = 0; i < HARDWARE_NUMBER_OF_ORDER_TYPES; i++){
+      if (MASTER_MATRIX[i][FLOOR.current] == 1){
+        printf("hei");
+        startTimer();
+        hardware_command_door_open(1);
+        deleteOrdersAndLightsOnCurrentFloor();
+      }
     }
   }
 }
 
 int checkForObstruction(){
-  return hardware_read_obstruction_signal() && FLOOR.current > -1 && (hardware_read_door_open() || hasStopped==1);
+  return hardware_read_obstruction_signal() && FLOOR.current > -1 &&hardware_read_door_open();
 }

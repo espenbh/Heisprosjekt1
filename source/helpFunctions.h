@@ -8,6 +8,7 @@
 #include "variables.h"
 #include "hardware.h"
 
+
 /**
 * @brief Turns of all the order lights in all the floor.*/
 void resetOrderLights();
@@ -35,6 +36,10 @@ int checkOrdersBelow(int tempFloor);
 * @brief Turns of all the order lights,
 * and sets every bit in @c MASTER_MATRIX to 0.*/
 void deleteOrdersAndLightsOnCurrentFloor();
+
+/**
+* @brief Switch on @p DIRECTION.current, drives the elevator*/
+void drive();
 
 /**
 * @brief Sets direction to the elevator based on a case where upwards motion is prefered.
