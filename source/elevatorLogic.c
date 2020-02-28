@@ -135,7 +135,6 @@ void checkForOrdersOnCurrentFloor(){
   if(FLOOR.current>-1){
     for (int i = 0; i < HARDWARE_NUMBER_OF_ORDER_TYPES; i++){
       if (MASTER_MATRIX[i][FLOOR.current] == 1){
-        printf("hei");
         startTimer();
         hardware_command_door_open(1);
         deleteOrdersAndLightsOnCurrentFloor();
